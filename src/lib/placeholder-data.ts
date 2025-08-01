@@ -1,5 +1,4 @@
-import type { LucideIcon } from "lucide-react";
-import { Brush, Droplets, SprayCan, Wind } from "lucide-react";
+import { Brush, Droplets, SprayCan, Wind, type Icon as LucideIcon } from "lucide-react";
 
 export type Category = {
   name: string;

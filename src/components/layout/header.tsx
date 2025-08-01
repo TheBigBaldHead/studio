@@ -7,6 +7,7 @@ import {
   ShoppingBag,
   Sparkles,
   User,
+  ShieldCheck,
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -42,6 +43,13 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+             <Link
+                href="/admin"
+                className="transition-colors hover:text-foreground/80 text-foreground/60 flex items-center gap-1"
+              >
+                <ShieldCheck className="h-4 w-4" />
+                ادمین
+              </Link>
           </nav>
         </div>
 
@@ -68,6 +76,10 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
+                <Link href="/admin" className="text-foreground/60 transition-colors hover:text-foreground/80 flex items-center gap-1">
+                  <ShieldCheck className="h-4 w-4" />
+                  ادمین
+                </Link>
               </div>
             </div>
           </SheetContent>

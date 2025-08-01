@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import type { LucideIcon } from "lucide-react"
+import type { Icon as LucideIcon } from "lucide-react"
 
 import { categories, featuredProducts } from "@/lib/placeholder-data"
 import { Button } from "@/components/ui/button"
