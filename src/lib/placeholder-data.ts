@@ -41,6 +41,7 @@ export type Product = {
   price: string;
   image: string;
   imageHint: string;
+  category: string;
 };
 
 export const featuredProducts: Product[] = [
@@ -51,6 +52,7 @@ export const featuredProducts: Product[] = [
     price: "۴۵۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "skincare product",
+    category: "مراقبت از پوست",
   },
   {
     id: "2",
@@ -59,6 +61,7 @@ export const featuredProducts: Product[] = [
     price: "۲۸۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "lipstick makeup",
+    category: "آرایش",
   },
   {
     id: "3",
@@ -67,6 +70,7 @@ export const featuredProducts: Product[] = [
     price: "۸۲۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "perfume fragrance",
+    category: "عطر",
   },
   {
     id: "4",
@@ -75,6 +79,7 @@ export const featuredProducts: Product[] = [
     price: "۳۴۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "shampoo hair",
+    category: "مراقبت از مو",
   },
    {
     id: "5",
@@ -83,6 +88,7 @@ export const featuredProducts: Product[] = [
     price: "۵۵۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "foundation makeup",
+    category: "آرایش",
   },
   {
     id: "6",
@@ -91,5 +97,33 @@ export const featuredProducts: Product[] = [
     price: "۴۹۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
     imageHint: "eyeshadow palette",
+    category: "آرایش",
+  },
+  {
+    id: '7',
+    name: 'کرم مرطوب کننده هیدرو بوست',
+    description: 'یک مرطوب کننده سبک و بدون چربی برای آبرسانی فوری.',
+    price: '۳۸۰,۰۰۰ تومان',
+    image: 'https://placehold.co/600x600.png',
+    imageHint: 'moisturizer cream',
+    category: 'مراقبت از پوست',
+  },
+  {
+    id: '8',
+    name: 'ریمل حجم دهنده بیگ لش',
+    description: 'ریملی برای مژه هایی پرپشت و چشمگیر.',
+    price: '۳۱۰,۰۰۰ تومان',
+    image: 'https://placehold.co/600x600.png',
+    imageHint: 'mascara makeup',
+    category: 'آرایش',
+  },
+  {
+    id: '9',
+    name: 'اسپری مو نگهدارنده قوی',
+    description: 'مدل موی خود را در تمام طول روز با این اسپری قوی ثابت نگه دارید.',
+    price: '۲۵۰,۰۰۰ تومان',
+    image: 'https://placehold.co/600x600.png',
+    imageHint: 'hairspray product',
+    category: 'مراقبت از مو',
   },
 ];

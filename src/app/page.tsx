@@ -1,15 +1,32 @@
+
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useMemo, useState } from "react"
 import type { Icon as LucideIcon } from "lucide-react"
 
-import { categories, featuredProducts } from "@/lib/placeholder-data"
+import { categories, featuredProducts, Product } from "@/lib/placeholder-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { NewArrivalAnalyzer } from "@/components/new-arrival-analyzer"
+import { Header } from "@/components/layout/header"
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery) {
+      return featuredProducts.slice(0, 3)
+    }
+    return featuredProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }, [searchQuery])
+
   return (
     <div className="flex flex-col">
+       <Header onSearch={setSearchQuery} />
       <section className="relative w-full py-20 md:py-28 lg:py-32 bg-gradient-to-r from-primary/20 via-background to-background">
         <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6 text-center md:text-right">
@@ -52,13 +69,24 @@ export default function Home() {
       <section id="featured" className="py-16 md:py-20 bg-secondary/30">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">محصولات ویژه</h2>
-            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">محصولات ضروری دستچین شده برای روتین زیبایی شما.</p>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">
+              {searchQuery ? "نتایج جستجو" : "محصولات ویژه"}
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+              {searchQuery
+                ? `نمایش نتایج برای "${searchQuery}"`
+                : "محصولات ضروری دستچین شده برای روتین زیبایی شما."}
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {featuredProducts.slice(0, 3).map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
+            {filteredProducts.length === 0 && (
+              <p className="text-center col-span-full text-muted-foreground">
+                محصولی یافت نشد.
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -88,7 +116,7 @@ function CategoryCard({ name, description, icon: Icon, href }: { name: string, d
   )
 }
 
-function ProductCard({ id, name, price, image, imageHint }: { id: string, name: string, price: string, image: string, imageHint: string }) {
+function ProductCard({ id, name, price, image, imageHint }: Product) {
   return (
     <Card className="overflow-hidden group">
       <Link href={`/products/${id}`} className="block">
