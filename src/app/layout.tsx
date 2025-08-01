@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { APIProvider } from '@/lib/apiClient';
+import { Header } from '@/components/layout/header';
 
 export const metadata: Metadata = {
   title: 'لارا - زیبایی و آرایش',
@@ -28,6 +29,7 @@ export default function RootLayout({
         <ThemeProvider>
           <APIProvider>
             <div className="relative flex min-h-screen flex-col">
+              <Header />
               <main className="flex-1">{children}</main>
               <Footer />
             </div>

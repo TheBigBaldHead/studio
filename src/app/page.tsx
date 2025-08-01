@@ -9,12 +9,10 @@ import { categories, featuredProducts, Product } from "@/lib/placeholder-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { NewArrivalAnalyzer } from "@/components/new-arrival-analyzer"
-import { Header } from "@/components/layout/header"
 
 export default function Home() {
   return (
     <div className="flex flex-col">
-       <Header />
       <section className="relative w-full py-20 md:py-28 lg:py-32 bg-gradient-to-r from-primary/20 via-background to-background">
         <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6 text-center md:text-right">
