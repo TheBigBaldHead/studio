@@ -126,7 +126,7 @@ export function Header() {
               value={searchQuery}
             />
             {isSearchFocused && searchResults.length > 0 && (
-              <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg">
+              <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg overflow-hidden">
                 <ScrollArea className="h-72">
                   <ul>
                     {searchResults.map((product) => (
