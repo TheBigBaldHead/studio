@@ -4,7 +4,7 @@ import { Lucia, verifyRequestOrigin } from 'lucia';
 import {
   FirebaseAdminAdapter,
   transformIntoLuciaUser,
-} from '@lucia-auth/adapter-firebase';
+} from 'lucia-auth-adapter-firebase';
 import { auth as adminAuth } from 'firebase-admin';
 import { cache } from 'react';
 import type { Session, User } from 'lucia';
