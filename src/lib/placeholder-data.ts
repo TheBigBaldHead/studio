@@ -50,7 +50,7 @@ export const featuredProducts: Product[] = [
     description: "یک سرم ویتامین C برای چهره ای درخشان.",
     price: "۴۵۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
-    imageHint: "skincare bottle",
+    imageHint: "skincare product",
   },
   {
     id: "2",
@@ -58,7 +58,7 @@ export const featuredProducts: Product[] = [
     description: "یک رژ لب مات غنی و با ماندگاری بالا.",
     price: "۲۸۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
-    imageHint: "lipstick product",
+    imageHint: "lipstick makeup",
   },
   {
     id: "3",
@@ -66,7 +66,7 @@ export const featuredProducts: Product[] = [
     description: "یک ادو پرفیوم گلی و تازه.",
     price: "۸۲۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
-    imageHint: "perfume bottle",
+    imageHint: "perfume fragrance",
   },
   {
     id: "4",
@@ -74,7 +74,7 @@ export const featuredProducts: Product[] = [
     description: "شامپوی ملایم برای موهای خشک و آسیب دیده.",
     price: "۳۴۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
-    imageHint: "shampoo bottle",
+    imageHint: "shampoo hair",
   },
    {
     id: "5",
@@ -82,7 +82,7 @@ export const featuredProducts: Product[] = [
     description: "کرم پودر سبک برای پایانی طبیعی و شبنم دار.",
     price: "۵۵۰,۰۰۰ تومان",
     image: "https://placehold.co/600x600.png",
-    imageHint: "foundation cosmetics",
+    imageHint: "foundation makeup",
   },
   {
     id: "6",

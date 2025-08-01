@@ -6,6 +6,7 @@ import { useMutation, useQuery, QueryClient, QueryClientProvider } from "@tansta
 import type { getParams, postParams } from "@/types/apiHubType";
 import { generateErrorMessage } from "@/lib/handleAPIErrors";
 import { CustomToast } from "@/lib/customToast";
+import React from "react";
 
 export const baseURL = "http://46.249.99.69:8080";
 // export const baseURL = "https://a50e-212-64-199-253.ngrok-free.app";
@@ -209,9 +210,5 @@ export const deleteData = async ({ endPoint, data, headers }: postParams) => {
 export const queryClient = new QueryClient();
 
 export function APIProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  );
+  return React.createElement(QueryClientProvider, { client: queryClient }, children);
 }

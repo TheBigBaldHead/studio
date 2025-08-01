@@ -27,7 +27,7 @@ export default function Home() {
             <Image
               src="https://placehold.co/800x600.png"
               alt="نمایش محصولات آرایشی"
-              data-ai-hint="cosmetics flatlay"
+              data-ai-hint="cosmetic products"
               fill
               className="object-cover rounded-lg shadow-xl"
             />
