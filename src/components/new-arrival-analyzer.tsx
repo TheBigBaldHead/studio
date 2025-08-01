@@ -23,13 +23,13 @@ import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
   productDescription: z.string().min(10, {
-    message: "Description must be at least 10 characters.",
+    message: "توضیحات باید حداقل ۱۰ کاراکتر باشد.",
   }),
   trendingKeywords: z.string().min(3, {
-    message: "Please enter at least one keyword.",
+    message: "لطفا حداقل یک کلمه کلیدی وارد کنید.",
   }),
   currentSeason: z.string().min(3, {
-    message: "Season must be at least 3 characters.",
+    message: "فصل باید حداقل ۳ کاراکتر باشد.",
   }),
 })
 
@@ -49,7 +49,7 @@ export function NewArrivalAnalyzer() {
     defaultValues: {
       productDescription: "",
       trendingKeywords: "",
-      currentSeason: "Summer",
+      currentSeason: "تابستان",
     },
   })
 
@@ -73,10 +73,10 @@ export function NewArrivalAnalyzer() {
         <CardHeader>
           <div className="flex items-center gap-2 mb-2">
             <Wand2 className="h-6 w-6 text-primary" />
-            <h3 className="text-2xl font-bold font-headline">New Arrival Analyzer</h3>
+            <h3 className="text-2xl font-bold font-headline">تحلیلگر محصولات جدید</h3>
           </div>
           <CardDescription>
-            Leverage our AI to predict the popularity of a new product before it even hits the shelves.
+            از هوش مصنوعی ما برای پیش‌بینی محبوبیت یک محصول جدید حتی قبل از عرضه به بازار استفاده کنید.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -87,10 +87,10 @@ export function NewArrivalAnalyzer() {
                 name="productDescription"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Product Description</FormLabel>
+                    <FormLabel>توضیحات محصول</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., A hydrating vegan lip balm with a hint of shimmer..."
+                        placeholder="مثال: یک بالم لب گیاهی آبرسان با کمی درخشش..."
                         rows={4}
                         {...field}
                       />
@@ -104,9 +104,9 @@ export function NewArrivalAnalyzer() {
                 name="trendingKeywords"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Trending Keywords</FormLabel>
+                    <FormLabel>کلمات کلیدی پرطرفدار</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., clean beauty, glass skin, spf" {...field} />
+                      <Input placeholder="مثال: زیبایی پاک، پوست شیشه‌ای، ضد آفتاب" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,9 +117,9 @@ export function NewArrivalAnalyzer() {
                 name="currentSeason"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Season</FormLabel>
+                    <FormLabel>فصل کنونی</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., Summer, Fall" {...field} />
+                      <Input placeholder="مثال: تابستان، پاییز" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,11 +127,11 @@ export function NewArrivalAnalyzer() {
               />
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? (
-                  "Analyzing..."
+                  "در حال تحلیل..."
                 ) : (
                   <>
-                    <Sparkles className="mr-2 h-4 w-4" />
-                    Determine Popularity
+                    <Sparkles className="ml-2 h-4 w-4" />
+                    تعیین محبوبیت
                   </>
                 )}
               </Button>
@@ -144,13 +144,13 @@ export function NewArrivalAnalyzer() {
         {isLoading && (
            <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px]">
              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-             <p className="mt-4 text-muted-foreground">AI is thinking...</p>
+             <p className="mt-4 text-muted-foreground">هوش مصنوعی در حال فکر کردن است...</p>
            </Card>
         )}
         {result && (
           <Card className="bg-card/80">
             <CardHeader>
-              <CardTitle>Analysis Result</CardTitle>
+              <CardTitle>نتیجه تحلیل</CardTitle>
             </CardHeader>
             <CardContent>
               <div
@@ -161,21 +161,21 @@ export function NewArrivalAnalyzer() {
                     : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300"
                 )}
               >
-                {result.isPopular ? "Likely to be Popular!" : "Might Not Be Popular"}
+                {result.isPopular ? "احتمالاً محبوب خواهد بود!" : "ممکن است محبوب نباشد"}
               </div>
               <p className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Reasoning:</span> {result.reasoning}
+                <span className="font-semibold text-foreground">دلیل:</span> {result.reasoning}
               </p>
             </CardContent>
             <CardFooter>
-                <Button variant="outline" onClick={() => setResult(null)}>Analyze Another</Button>
+                <Button variant="outline" onClick={() => setResult(null)}>تحلیل محصول دیگر</Button>
             </CardFooter>
           </Card>
         )}
         {!isLoading && !result && (
              <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px] border-dashed">
              <Wand2 className="h-12 w-12 text-muted-foreground/50" />
-             <p className="mt-4 text-center text-muted-foreground">Your product popularity analysis will appear here.</p>
+             <p className="mt-4 text-center text-muted-foreground">نتیجه تحلیل محبوبیت محصول شما در اینجا نمایش داده خواهد شد.</p>
            </Card>
         )}
       </div>

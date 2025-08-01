@@ -12,21 +12,21 @@ export default function Home() {
     <div className="flex flex-col">
       <section className="relative w-full py-20 md:py-32 lg:py-40 bg-gradient-to-r from-primary/20 via-background to-background">
         <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4 text-center md:text-left">
+          <div className="space-y-4 text-center md:text-right">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter font-headline">
-              Radiance Redefined
+              درخشندگی بازتعریف شده
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground">
-              Explore our curated collection of luxury cosmetics and unlock your inner glow.
+              مجموعه انتخاب شده ما از لوازم آرایشی لوکس را کاوش کنید و درخشش درونی خود را آزاد کنید.
             </p>
             <Button size="lg" asChild>
-              <Link href="#featured">Shop Now</Link>
+              <Link href="#featured">اکنون خرید کنید</Link>
             </Button>
           </div>
           <div className="relative h-64 md:h-96">
             <Image
               src="https://placehold.co/800x600.png"
-              alt="Cosmetic products display"
+              alt="نمایش محصولات آرایشی"
               data-ai-hint="cosmetics flatlay"
               fill
               className="object-cover rounded-lg shadow-xl"
@@ -38,8 +38,8 @@ export default function Home() {
       <section id="categories" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">Shop by Category</h2>
-            <p className="text-muted-foreground mt-2">Find exactly what you're looking for.</p>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">خرید بر اساس دسته بندی</h2>
+            <p className="text-muted-foreground mt-2">دقیقا همان چیزی را که به دنبالش هستید پیدا کنید.</p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {categories.map((category) => (
@@ -52,8 +52,8 @@ export default function Home() {
       <section id="featured" className="py-16 md:py-24 bg-secondary/30">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline">Featured Products</h2>
-            <p className="text-muted-foreground mt-2">Handpicked essentials for your beauty ritual.</p>
+            <h2 className="text-3xl md:text-4xl font-bold font-headline">محصولات ویژه</h2>
+            <p className="text-muted-foreground mt-2">محصولات ضروری دستچین شده برای روتین زیبایی شما.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProducts.slice(0, 3).map((product) => (
@@ -107,7 +107,7 @@ function ProductCard({ id, name, price, image, imageHint }: { id: string, name: 
       <CardContent className="p-4">
         <CardTitle className="text-lg font-headline mb-1">{name}</CardTitle>
         <CardDescription className="text-base">{price}</CardDescription>
-        <Button className="w-full mt-4">Add to Bag</Button>
+        <Button className="w-full mt-4">افزودن به سبد خرید</Button>
       </CardContent>
     </Card>
   )

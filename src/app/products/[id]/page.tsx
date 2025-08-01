@@ -29,16 +29,16 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <Separator />
           <p className="mt-6 text-lg text-foreground/80">{product.description}</p>
           <div className="mt-8">
-            <Button size="lg" className="w-full md:w-auto">Add to Bag</Button>
+            <Button size="lg" className="w-full md:w-auto">افزودن به سبد خرید</Button>
           </div>
           <div className="mt-8 space-y-4">
             <div>
-              <h3 className="font-semibold font-headline">Availability</h3>
-              <p className="text-sm text-muted-foreground">In Stock</p>
+              <h3 className="font-semibold font-headline">موجودی</h3>
+              <p className="text-sm text-muted-foreground">موجود در انبار</p>
             </div>
             <div>
-              <h3 className="font-semibold font-headline">Shipping</h3>
-              <p className="text-sm text-muted-foreground">Ships in 1-2 business days.</p>
+              <h3 className="font-semibold font-headline">ارسال</h3>
+              <p className="text-sm text-muted-foreground">ارسال در ۱-۲ روز کاری.</p>
             </div>
           </div>
         </div>

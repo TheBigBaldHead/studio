@@ -7,8 +7,8 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Lara - Beauty & Cosmetics',
-  description: 'Discover the latest in beauty at Lara. Shop our collection of makeup, skincare, and fragrance.',
+  title: 'لارا - زیبایی و آرایش',
+  description: 'جدیدترین محصولات زیبایی را در لارا کشف کنید. مجموعه آرایش، مراقبت از پوست و عطر ما را خریداری کنید.',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

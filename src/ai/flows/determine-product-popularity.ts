@@ -14,16 +14,16 @@ import {z} from 'genkit';
 const DetermineProductPopularityInputSchema = z.object({
   productDescription: z
     .string()
-    .describe('The description of the new cosmetic product.'),
+    .describe('توضیحات محصول آرایشی جدید.'),
   trendingKeywords: z
     .string()
     .describe(
-      'A comma-separated list of trending keywords in the cosmetic industry.'
+      'لیستی از کلمات کلیدی پرطرفدار در صنعت آرایشی که با کاما از هم جدا شده اند.'
     ),
   currentSeason: z
     .string()
     .describe(
-      'The current season (e.g., Spring, Summer, Fall, Winter) to consider for relevance.'
+      'فصل فعلی (مثلاً بهار، تابستان، پاییز، زمستان) برای در نظر گرفتن ارتباط.'
     ),
 });
 export type DetermineProductPopularityInput = z.infer<
@@ -34,12 +34,12 @@ const DetermineProductPopularityOutputSchema = z.object({
   isPopular: z
     .boolean()
     .describe(
-      'Whether the product is likely to be popular based on the input data.'
+      'اینکه آیا محصول بر اساس داده های ورودی احتمالاً محبوب خواهد بود یا خیر.'
     ),
   reasoning: z
     .string()
     .describe(
-      'The reasoning behind the popularity determination, explaining why the product is likely to be popular or not.'
+      'دلیل تعیین محبوبیت، توضیح اینکه چرا محصول احتمالاً محبوب خواهد بود یا نه.'
     ),
 });
 export type DetermineProductPopularityOutput = z.infer<
@@ -56,23 +56,23 @@ const prompt = ai.definePrompt({
   name: 'determineProductPopularityPrompt',
   input: {schema: DetermineProductPopularityInputSchema},
   output: {schema: DetermineProductPopularityOutputSchema},
-  prompt: `You are an expert cosmetic product popularity analyst.
+  prompt: `شما یک تحلیلگر متخصص محبوبیت محصولات آرایشی هستید.
 
-You will analyze the provided product description, trending keywords, and current season to determine if the product is likely to be popular.
+شما توضیحات محصول ارائه شده، کلمات کلیدی پرطرفدار و فصل جاری را تحلیل خواهید کرد تا مشخص کنید آیا محصول احتمالاً محبوب خواهد بود یا خیر.
 
-Product Description: {{{productDescription}}}
-Trending Keywords: {{{trendingKeywords}}}
-Current Season: {{{currentSeason}}}
+توضیحات محصول: {{{productDescription}}}
+کلمات کلیدی پرطرفدار: {{{trendingKeywords}}}
+فصل جاری: {{{currentSeason}}}
 
-Consider the following factors when determining popularity:
-- Relevance to trending keywords: Does the product align with current trends?
-- Seasonal relevance: Is the product suitable for the current season?
-- Uniqueness: Does the product offer something new or different from existing products?
+هنگام تعیین محبوبیت، عوامل زیر را در نظر بگیرید:
+- ارتباط با کلمات کلیدی پرطرفدار: آیا محصول با روندهای فعلی همخوانی دارد؟
+- ارتباط فصلی: آیا محصول برای فصل جاری مناسب است؟
+- منحصر به فرد بودن: آیا محصول چیز جدید یا متفاوتی نسبت به محصولات موجود ارائه می دهد؟
 
-Based on your analysis, determine whether the product is likely to be popular and provide a clear explanation for your reasoning in the 'reasoning' field.
-Set the 'isPopular' field to true if the product is likely to be popular, and false otherwise.
+بر اساس تحلیل خود، تعیین کنید که آیا محصول احتمالاً محبوب خواهد بود و توضیح واضحی برای استدلال خود در فیلد 'reasoning' ارائه دهید.
+اگر محصول احتمالاً محبوب است، فیلد 'isPopular' را روی true و در غیر این صورت روی false تنظیم کنید.
 
-Please make sure to provide your output in JSON format.
+لطفاً اطمینان حاصل کنید که خروجی خود را در قالب JSON ارائه می دهید.
 `,
 });
 
