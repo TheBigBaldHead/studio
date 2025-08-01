@@ -3,7 +3,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
 import type { Icon as LucideIcon } from "lucide-react"
 
 import { categories, featuredProducts, Product } from "@/lib/placeholder-data"
@@ -13,20 +12,9 @@ import { NewArrivalAnalyzer } from "@/components/new-arrival-analyzer"
 import { Header } from "@/components/layout/header"
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("")
-
-  const filteredProducts = useMemo(() => {
-    if (!searchQuery) {
-      return featuredProducts.slice(0, 3)
-    }
-    return featuredProducts.filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  }, [searchQuery])
-
   return (
     <div className="flex flex-col">
-       <Header onSearch={setSearchQuery} />
+       <Header />
       <section className="relative w-full py-20 md:py-28 lg:py-32 bg-gradient-to-r from-primary/20 via-background to-background">
         <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6 text-center md:text-right">
@@ -36,7 +24,7 @@ export default function Home() {
             <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto md:mx-0">
               مجموعه انتخاب شده ما از لوازم آرایشی لوکس را کاوش کنید و درخشش درونی خود را آزاد کنید.
             </p>
-            <Button size="lg" asChild>
+            <Button size="lg" asChild className="cursor-pointer">
               <Link href="#featured">اکنون خرید کنید</Link>
             </Button>
           </div>
@@ -70,23 +58,16 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold font-headline">
-              {searchQuery ? "نتایج جستجو" : "محصولات ویژه"}
+              محصولات ویژه
             </h2>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-              {searchQuery
-                ? `نمایش نتایج برای "${searchQuery}"`
-                : "محصولات ضروری دستچین شده برای روتین زیبایی شما."}
+              محصولات ضروری دستچین شده برای روتین زیبایی شما.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredProducts.map((product) => (
+            {featuredProducts.slice(0,6).map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
-            {filteredProducts.length === 0 && (
-              <p className="text-center col-span-full text-muted-foreground">
-                محصولی یافت نشد.
-              </p>
-            )}
           </div>
         </div>
       </section>
@@ -102,7 +83,7 @@ export default function Home() {
 
 function CategoryCard({ name, description, icon: Icon, href }: { name: string, description: string, icon: LucideIcon, href: string }) {
   return (
-    <Link href={href} className="block">
+    <Link href={href} className="block cursor-pointer">
       <Card className="text-center p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary">
         <div className="flex justify-center mb-4">
           <div className="p-4 bg-primary/20 rounded-full">
@@ -119,7 +100,7 @@ function CategoryCard({ name, description, icon: Icon, href }: { name: string, d
 function ProductCard({ id, name, price, image, imageHint }: Product) {
   return (
     <Card className="overflow-hidden group">
-      <Link href={`/products/${id}`} className="block">
+      <Link href={`/products/${id}`} className="block cursor-pointer">
         <CardHeader className="p-0">
             <div className="aspect-square relative overflow-hidden">
               <Image
@@ -134,10 +115,10 @@ function ProductCard({ id, name, price, image, imageHint }: Product) {
       </Link>
       <CardContent className="p-4">
         <CardTitle className="text-lg font-headline mb-1 truncate">
-           <Link href={`/products/${id}`}>{name}</Link>
+           <Link href={`/products/${id}`} className="cursor-pointer">{name}</Link>
         </CardTitle>
         <CardDescription className="text-base">{price}</CardDescription>
-        <Button className="w-full mt-4">افزودن به سبد خرید</Button>
+        <Button className="w-full mt-4 cursor-pointer">افزودن به سبد خرید</Button>
       </CardContent>
     </Card>
   )

@@ -7,14 +7,16 @@ import {
   Search,
   ShoppingBag,
   Sparkles,
-  LogIn,
 } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { featuredProducts, Product } from "@/lib/placeholder-data"
 
 const navLinks = [
   { href: "#categories", label: "دسته بندی ها" },
@@ -22,17 +24,39 @@ const navLinks = [
   { href: "#new-arrivals", label: "تازه رسیده" },
 ]
 
-interface HeaderProps {
-  onSearch?: (query: string) => void;
-}
+export function Header() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState<Product[]>([])
+  const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const searchRef = useRef<HTMLDivElement>(null)
 
-export function Header({ onSearch }: HeaderProps) {
+  useEffect(() => {
+    if (searchQuery) {
+      const results = featuredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      setSearchResults(results)
+    } else {
+      setSearchResults([])
+    }
+  }, [searchQuery])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [searchRef])
+
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(onSearch) {
-      onSearch(event.target.value);
-    }
-  };
+    setSearchQuery(event.target.value)
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -90,20 +114,57 @@ export function Header({ onSearch }: HeaderProps) {
         
         {/* Center Section - Search Bar */}
         <div className="flex-1 flex justify-center px-4">
-          <div className="relative w-full max-w-md">
+          <div className="relative w-full max-w-md" ref={searchRef}>
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="جستجوی محصولات..."
               className="w-full pr-9"
               onChange={handleSearchChange}
+              onFocus={() => setIsSearchFocused(true)}
+              value={searchQuery}
             />
+            {isSearchFocused && searchResults.length > 0 && (
+              <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg">
+                <ul>
+                  {searchResults.map((product) => (
+                    <li key={product.id}>
+                      <Link 
+                        href={`/products/${product.id}`} 
+                        className="flex items-center gap-4 p-3 hover:bg-accent"
+                        onClick={() => {
+                          setSearchQuery("")
+                          setIsSearchFocused(false)
+                        }}
+                      >
+                         <Image 
+                           src={product.image} 
+                           alt={product.name}
+                           width={40}
+                           height={40}
+                           className="rounded-md object-cover" 
+                          />
+                        <div className="flex flex-col">
+                           <span className="font-medium">{product.name}</span>
+                           <span className="text-sm text-muted-foreground">{product.price}</span>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+             {isSearchFocused && searchQuery && searchResults.length === 0 && (
+                <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg p-4 text-center text-muted-foreground">
+                    محصولی یافت نشد.
+                </div>
+             )}
           </div>
         </div>
 
         {/* Right Section */}
         <div className="flex items-center justify-end gap-2 ml-4">
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="cursor-pointer">
             <ShoppingBag className="h-5 w-5" />
             <span className="sr-only">سبد خرید</span>
           </Button>
