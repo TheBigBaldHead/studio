@@ -65,7 +65,7 @@ export function Header() {
         {/* Left Section */}
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center">
-            <Link href="/" className="flex items-center gap-2 mr-4">
+            <Link href="/" className="flex items-center gap-2 mr-6">
               <Sparkles className="h-6 w-6 text-primary" />
               <span className="font-bold sm:inline-block font-headline">
                 لارا
@@ -133,12 +133,16 @@ export function Header() {
                       <li key={product.id}>
                         <Link 
                           href={`/products/${product.id}`} 
-                          className="flex items-center gap-4 p-3 hover:bg-accent"
+                          className="flex items-center justify-end gap-4 p-3 hover:bg-accent text-right"
                           onClick={() => {
                             setSearchQuery("")
                             setIsSearchFocused(false)
                           }}
                         >
+                           <div className="flex flex-col text-right">
+                            <span className="font-medium">{product.name}</span>
+                            <span className="text-sm text-muted-foreground">{product.price}</span>
+                          </div>
                           <Image 
                             src={product.image} 
                             alt={product.name}
@@ -146,10 +150,6 @@ export function Header() {
                             height={40}
                             className="rounded-md object-cover" 
                             />
-                          <div className="flex flex-col">
-                            <span className="font-medium">{product.name}</span>
-                            <span className="text-sm text-muted-foreground">{product.price}</span>
-                          </div>
                         </Link>
                       </li>
                     ))}
@@ -166,7 +166,7 @@ export function Header() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-end gap-2 ml-4">
+        <div className="flex items-center justify-end gap-2 ml-6">
           <Button variant="ghost" size="icon" className="cursor-pointer">
             <ShoppingBag className="h-5 w-5" />
             <span className="sr-only">سبد خرید</span>
