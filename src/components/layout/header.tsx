@@ -20,6 +20,7 @@ import { featuredProducts, Product } from "@/lib/placeholder-data"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 const navLinks = [
+  { href: "/search", label: "محصولات" },
   { href: "#categories", label: "دسته بندی ها" },
   { href: "#featured", label: "ویژه" },
 ]
@@ -57,6 +58,14 @@ export function Header() {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value)
   }
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if(searchQuery) {
+      window.location.href = `/search?q=${searchQuery}`;
+    }
+  }
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -115,52 +124,55 @@ export function Header() {
         {/* Center Section - Search Bar */}
         <div className="flex-1 flex justify-center px-4">
           <div className="relative w-full max-w-md" ref={searchRef}>
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="جستجوی محصولات..."
-              className="w-full pr-9"
-              onChange={handleSearchChange}
-              onFocus={() => setIsSearchFocused(true)}
-              value={searchQuery}
-            />
-            {isSearchFocused && searchResults.length > 0 && (
+             <form onSubmit={handleSearchSubmit}>
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="جستجوی محصولات..."
+                className="w-full pr-9"
+                onChange={handleSearchChange}
+                onFocus={() => setIsSearchFocused(true)}
+                value={searchQuery}
+              />
+            </form>
+            {isSearchFocused && searchQuery && (
               <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg overflow-hidden">
-                <ScrollArea className="h-72">
-                  <ul className="text-right">
-                    {searchResults.map((product) => (
-                      <li key={product.id}>
-                        <Link 
-                          href={`/products/${product.id}`} 
-                          className="flex items-center justify-end gap-4 p-3 hover:bg-accent text-right"
-                          onClick={() => {
-                            setSearchQuery("")
-                            setIsSearchFocused(false)
-                          }}
-                        >
-                           <div className="flex flex-col text-right">
-                            <span className="font-medium">{product.name}</span>
-                            <span className="text-sm text-muted-foreground">{product.price}</span>
-                          </div>
-                          <Image 
-                            src={product.image} 
-                            alt={product.name}
-                            width={40}
-                            height={40}
-                            className="rounded-md object-cover" 
-                            />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </ScrollArea>
+                {searchResults.length > 0 ? (
+                  <ScrollArea className="h-72">
+                    <ul className="text-right">
+                      {searchResults.map((product) => (
+                        <li key={product.id}>
+                          <Link 
+                            href={`/products/${product.id}`} 
+                            className="flex items-center justify-end gap-4 p-3 hover:bg-accent text-right"
+                            onClick={() => {
+                              setSearchQuery("")
+                              setIsSearchFocused(false)
+                            }}
+                          >
+                            <div className="flex flex-col text-right">
+                              <span className="font-medium">{product.name}</span>
+                              <span className="text-sm text-muted-foreground">{product.price}</span>
+                            </div>
+                            <Image 
+                              src={product.image} 
+                              alt={product.name}
+                              width={40}
+                              height={40}
+                              className="rounded-md object-cover" 
+                              />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollArea>
+                ) : (
+                  <div className="p-4 text-center text-muted-foreground">
+                      محصولی یافت نشد.
+                  </div>
+                )}
               </div>
             )}
-             {isSearchFocused && searchQuery && searchResults.length === 0 && (
-                <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg p-4 text-center text-muted-foreground">
-                    محصولی یافت نشد.
-                </div>
-             )}
           </div>
         </div>
 
