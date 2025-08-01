@@ -63,15 +63,15 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Left Section */}
-        <div className="flex items-center gap-6 mr-4">
+        <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 mr-4">
               <Sparkles className="h-6 w-6 text-primary" />
               <span className="font-bold sm:inline-block font-headline">
                 لارا
               </span>
             </Link>
-            <nav className="flex items-center gap-6 text-sm font-medium mr-6">
+            <nav className="flex items-center gap-6 text-sm font-medium">
               {navLinks.map(link => (
                 <Link
                   key={link.href}
@@ -126,9 +126,9 @@ export function Header() {
               value={searchQuery}
             />
             {isSearchFocused && searchResults.length > 0 && (
-              <div className="absolute text-right top-full mt-2 w-full rounded-md border bg-background shadow-lg overflow-hidden">
+              <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg overflow-hidden">
                 <ScrollArea className="h-72">
-                  <ul>
+                  <ul className="text-right">
                     {searchResults.map((product) => (
                       <li key={product.id}>
                         <Link 
