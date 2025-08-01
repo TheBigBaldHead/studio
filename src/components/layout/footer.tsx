@@ -11,7 +11,7 @@ export function Footer() {
           </p>
         </div>
         <p className="text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Sefoura Inc. All rights reserved.
+          © {new Date().getFullYear()} Lara Inc. All rights reserved.
         </p>
       </div>
     </footer>

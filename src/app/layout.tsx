@@ -7,8 +7,8 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Sefoura - Beauty & Cosmetics',
-  description: 'Discover the latest in beauty at Sefoura. Shop our collection of makeup, skincare, and fragrance.',
+  title: 'Lara - Beauty & Cosmetics',
+  description: 'Discover the latest in beauty at Lara. Shop our collection of makeup, skincare, and fragrance.',
 };
 
 export default function RootLayout({
