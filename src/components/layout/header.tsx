@@ -91,7 +91,7 @@ export function Header() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-2 ml-4">
           <Button variant="ghost" size="icon">
             <ShoppingBag className="h-5 w-5" />
             <span className="sr-only">سبد خرید</span>
