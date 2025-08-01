@@ -71,7 +71,7 @@ export function NewArrivalAnalyzer() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
       <Card className="w-full">
         <CardHeader>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-3 mb-2">
             <Wand2 className="h-6 w-6 text-primary" />
             <h3 className="text-2xl font-bold font-headline">تحلیلگر محصولات جدید</h3>
           </div>
@@ -140,9 +140,9 @@ export function NewArrivalAnalyzer() {
         </CardContent>
       </Card>
       
-      <div className="lg:mt-[90px]">
+      <div className="lg:sticky lg:top-24">
         {isLoading && (
-           <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px]">
+           <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px] lg:min-h-[480px]">
              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
              <p className="mt-4 text-muted-foreground">هوش مصنوعی در حال فکر کردن است...</p>
            </Card>
@@ -152,10 +152,10 @@ export function NewArrivalAnalyzer() {
             <CardHeader>
               <CardTitle>نتیجه تحلیل</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
               <div
                 className={cn(
-                  "p-4 rounded-lg text-lg font-semibold flex items-center justify-center mb-4",
+                  "p-4 rounded-lg text-lg font-semibold flex items-center justify-center",
                   result.isPopular
                     ? "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300"
                     : "bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300"
@@ -163,7 +163,7 @@ export function NewArrivalAnalyzer() {
               >
                 {result.isPopular ? "احتمالاً محبوب خواهد بود!" : "ممکن است محبوب نباشد"}
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">دلیل:</span> {result.reasoning}
               </p>
             </CardContent>
@@ -173,7 +173,7 @@ export function NewArrivalAnalyzer() {
           </Card>
         )}
         {!isLoading && !result && (
-             <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px] border-dashed">
+             <Card className="flex flex-col items-center justify-center p-8 h-full min-h-[300px] lg:min-h-[480px] border-dashed">
              <Wand2 className="h-12 w-12 text-muted-foreground/50" />
              <p className="mt-4 text-center text-muted-foreground">نتیجه تحلیل محبوبیت محصول شما در اینجا نمایش داده خواهد شد.</p>
            </Card>

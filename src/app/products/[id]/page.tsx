@@ -12,7 +12,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
+    <div className="container mx-auto px-4 py-8 md:px-6 lg:py-12">
       <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
         <div className="aspect-square relative rounded-lg overflow-hidden shadow-lg">
           <Image
@@ -27,18 +27,18 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           <h1 className="text-3xl lg:text-4xl font-bold font-headline">{product.name}</h1>
           <p className="text-2xl lg:text-3xl text-muted-foreground my-4">{product.price}</p>
           <Separator />
-          <p className="mt-6 text-lg text-foreground/80">{product.description}</p>
+          <p className="mt-6 text-base text-foreground/80 leading-relaxed">{product.description}</p>
           <div className="mt-8">
             <Button size="lg" className="w-full md:w-auto">افزودن به سبد خرید</Button>
           </div>
-          <div className="mt-8 space-y-4">
+          <div className="mt-8 space-y-4 text-sm">
             <div>
               <h3 className="font-semibold font-headline">موجودی</h3>
-              <p className="text-sm text-muted-foreground">موجود در انبار</p>
+              <p className="text-muted-foreground">موجود در انبار</p>
             </div>
             <div>
               <h3 className="font-semibold font-headline">ارسال</h3>
-              <p className="text-sm text-muted-foreground">ارسال در ۱-۲ روز کاری.</p>
+              <p className="text-muted-foreground">ارسال در ۱-۲ روز کاری.</p>
             </div>
           </div>
         </div>
