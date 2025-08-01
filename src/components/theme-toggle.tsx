@@ -26,13 +26,13 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")} className="justify-end">
+        <DropdownMenuItem onClick={() => setTheme("light")} className="justify-end cursor-pointer">
           روشن
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className="justify-end">
+        <DropdownMenuItem onClick={() => setTheme("dark")} className="justify-end cursor-pointer">
           تیره
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")} className="justify-end">
+        <DropdownMenuItem onClick={() => setTheme("system")} className="justify-end cursor-pointer">
           سیستم
         </DropdownMenuItem>
       </DropdownMenuContent>
