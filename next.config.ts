@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ['next-themes'],
 };
 
 export default nextConfig;
