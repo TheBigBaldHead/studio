@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/hooks/use-auth';
 
 export const metadata: Metadata = {
   title: 'لارا - زیبایی و آرایش',
@@ -27,14 +26,12 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen bg-background font-body antialiased", "font-body")}>
         <ThemeProvider>
-          <AuthProvider>
             <div className="relative flex min-h-screen flex-col">
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
             <Toaster />
-          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
