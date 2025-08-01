@@ -9,8 +9,9 @@ import {
   SidebarMenuButton,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { Sparkles, LayoutDashboard } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
+import { CometIcon } from "@/components/ui/comet-icon";
 
 export default function AdminLayout({
   children,
@@ -23,7 +24,7 @@ export default function AdminLayout({
         <SidebarHeader>
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
-              <Sparkles className="h-6 w-6 text-primary" />
+              <CometIcon className="h-6 w-6 text-primary" />
               <span className="font-bold text-lg hidden group-data-[state=expanded]:block">لارا</span>
             </Link>
             <SidebarTrigger />

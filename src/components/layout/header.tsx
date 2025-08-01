@@ -5,7 +5,6 @@ import {
   Menu,
   Search,
   ShoppingBag,
-  Sparkles,
   User,
   ShieldCheck,
 } from "lucide-react"
@@ -15,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { CometIcon } from "@/components/ui/comet-icon"
 
 const navLinks = [
   { href: "#categories", label: "دسته بندی ها" },
@@ -28,7 +28,7 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <div className="hidden md:flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary" />
+            <CometIcon className="h-6 w-6 text-primary" />
             <span className="font-bold sm:inline-block font-headline">
               لارا
             </span>
@@ -66,7 +66,7 @@ export function Header() {
           </SheetTrigger>
           <SheetContent side="right" className="pr-0">
             <Link href="/" className="mr-6 flex items-center space-x-2">
-               <Sparkles className="h-6 w-6 text-primary" />
+               <CometIcon className="h-6 w-6 text-primary" />
               <span className="font-bold font-headline">لارا</span>
             </Link>
             <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
