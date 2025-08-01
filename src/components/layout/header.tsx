@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { featuredProducts, Product } from "@/lib/placeholder-data"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const navLinks = [
   { href: "#categories", label: "دسته بندی ها" },
@@ -126,32 +127,34 @@ export function Header() {
             />
             {isSearchFocused && searchResults.length > 0 && (
               <div className="absolute top-full mt-2 w-full rounded-md border bg-background shadow-lg">
-                <ul>
-                  {searchResults.map((product) => (
-                    <li key={product.id}>
-                      <Link 
-                        href={`/products/${product.id}`} 
-                        className="flex items-center gap-4 p-3 hover:bg-accent"
-                        onClick={() => {
-                          setSearchQuery("")
-                          setIsSearchFocused(false)
-                        }}
-                      >
-                         <Image 
-                           src={product.image} 
-                           alt={product.name}
-                           width={40}
-                           height={40}
-                           className="rounded-md object-cover" 
-                          />
-                        <div className="flex flex-col">
-                           <span className="font-medium">{product.name}</span>
-                           <span className="text-sm text-muted-foreground">{product.price}</span>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <ScrollArea className="h-72">
+                  <ul>
+                    {searchResults.map((product) => (
+                      <li key={product.id}>
+                        <Link 
+                          href={`/products/${product.id}`} 
+                          className="flex items-center gap-4 p-3 hover:bg-accent"
+                          onClick={() => {
+                            setSearchQuery("")
+                            setIsSearchFocused(false)
+                          }}
+                        >
+                          <Image 
+                            src={product.image} 
+                            alt={product.name}
+                            width={40}
+                            height={40}
+                            className="rounded-md object-cover" 
+                            />
+                          <div className="flex flex-col">
+                            <span className="font-medium">{product.name}</span>
+                            <span className="text-sm text-muted-foreground">{product.price}</span>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </ScrollArea>
               </div>
             )}
              {isSearchFocused && searchQuery && searchResults.length === 0 && (
