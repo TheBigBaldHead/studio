@@ -22,7 +22,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 const navLinks = [
   { href: "#categories", label: "دسته بندی ها" },
   { href: "#featured", label: "ویژه" },
-  { href: "#new-arrivals", label: "تازه رسیده" },
 ]
 
 export function Header() {

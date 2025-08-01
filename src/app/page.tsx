@@ -8,7 +8,6 @@ import type { Icon as LucideIcon } from "lucide-react"
 import { categories, featuredProducts, Product } from "@/lib/placeholder-data"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { NewArrivalAnalyzer } from "@/components/new-arrival-analyzer"
 
 export default function Home() {
   return (
@@ -67,12 +66,6 @@ export default function Home() {
               <ProductCard key={product.id} {...product} />
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="new-arrivals" className="py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 md:px-6">
-          <NewArrivalAnalyzer />
         </div>
       </section>
     </div>
