@@ -7,9 +7,11 @@ import {
   Search,
   ShoppingBag,
   Sparkles,
+  User,
 } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -18,6 +20,15 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { featuredProducts, Product } from "@/lib/placeholder-data"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { useAuth } from "@/hooks/use-auth"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const navLinks = [
   { href: "/search", label: "محصولات" },
@@ -30,6 +41,8 @@ export function Header() {
   const [searchResults, setSearchResults] = useState<Product[]>([])
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
+  const { user, logout } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     if (searchQuery) {
@@ -66,6 +79,10 @@ export function Header() {
     }
   }
 
+  const handleLogout = () => {
+    logout()
+    router.push("/")
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -182,6 +199,32 @@ export function Header() {
             <ShoppingBag className="h-5 w-5" />
             <span className="sr-only">سبد خرید</span>
           </Button>
+
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
+                  <span className="sr-only">پروفایل کاربر</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer justify-end">
+                  پروفایل
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer justify-end">
+                  خروج
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="ghost" asChild>
+              <Link href="/login">ورود</Link>
+            </Button>
+          )}
+
           <ThemeToggle />
         </div>
       </div>
