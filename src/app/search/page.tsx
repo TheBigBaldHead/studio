@@ -80,7 +80,7 @@ export default function SearchPage() {
               <div className="space-y-2 flex flex-col items-start">
                 <Button
                   variant="ghost"
-                  className={cn("w-full justify-start", selectedCategory === 'all' && 'bg-accent')}
+                  className={cn("w-full justify-start", selectedCategory === 'all' && 'bg-accent text-accent-foreground')}
                   onClick={() => handleCategoryChange('all')}
                 >
                   همه محصولات
@@ -89,7 +89,7 @@ export default function SearchPage() {
                   <Button
                     key={category.name}
                     variant="ghost"
-                    className={cn("w-full justify-start", selectedCategory === category.name && 'bg-accent')}
+                    className={cn("w-full justify-start", selectedCategory === category.name && 'bg-accent text-accent-foreground')}
                     onClick={() => handleCategoryChange(category.name)}
                   >
                     {category.name}
