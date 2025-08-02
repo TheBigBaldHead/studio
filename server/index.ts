@@ -2,78 +2,113 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import { Pool } from 'pg';
+import bcrypt from 'bcrypt';
+import 'dotenv/config';
 
 const app = express();
 const port = 8080;
-const jwtSecret = 'your-super-secret-key'; 
+const jwtSecret = 'your-super-secret-key';
+const saltRounds = 10;
+
+// Database connection
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+// Create users table if it doesn't exist
+const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  );
+`;
+
+pool.query(createTableQuery)
+  .then(() => console.log('Users table is ready'))
+  .catch((err) => console.error('Error creating users table', err));
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// In-memory "database"
-const users: any[] = [];
-let userIdCounter = 1;
-
 // Register endpoint
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: 'لطفا تمام فیلدها را پر کنید.' });
   }
 
-  const existingUser = users.find(u => u.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'کاربری با این ایمیل قبلا ثبت نام کرده است.' });
+  try {
+    // Check if user already exists
+    const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ message: 'کاربری با این ایمیل قبلا ثبت نام کرده است.' });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Insert the new user
+    const newUserResult = await pool.query(
+      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id, name, email',
+      [name, email, hashedPassword]
+    );
+
+    const newUser = newUserResult.rows[0];
+
+    const userPayload = { id: newUser.id, name: newUser.name, email: newUser.email };
+    const accessToken = jwt.sign(userPayload, jwtSecret, { expiresIn: '1h' });
+
+    console.log('User registered:', userPayload);
+    res.status(201).json({
+      user: userPayload,
+      accessToken,
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'خطایی در سرور رخ داد. لطفا دوباره تلاش کنید.' });
   }
-
-  const newUser = {
-    id: (userIdCounter++).toString(),
-    name,
-    email,
-    password, // In a real app, hash and salt the password!
-  };
-
-  users.push(newUser);
-
-  const userPayload = { id: newUser.id, name: newUser.name, email: newUser.email };
-  const accessToken = jwt.sign(userPayload, jwtSecret, { expiresIn: '1h' });
-
-  console.log('User registered:', userPayload);
-  console.log('Current users:', users.map(u => ({id: u.id, name: u.name, email: u.email})));
-
-  res.status(201).json({
-    user: userPayload,
-    accessToken,
-  });
 });
 
 // Login endpoint
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: 'لطفا ایمیل و رمز عبور را وارد کنید.' });
   }
 
-  const user = users.find(u => u.email === email);
-  if (!user) {
-    return res.status(401).json({ message: 'ایمیل یا رمز عبور نامعتبر است.' });
+  try {
+    // Find the user by email
+    const userResult = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (userResult.rows.length === 0) {
+      return res.status(401).json({ message: 'ایمیل یا رمز عبور نامعتبر است.' });
+    }
+
+    const user = userResult.rows[0];
+
+    // Compare the password with the hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'ایمیل یا رمز عبور نامعتبر است.' });
+    }
+
+    const userPayload = { id: user.id, name: user.name, email: user.email };
+    const accessToken = jwt.sign(userPayload, jwtSecret, { expiresIn: '1h' });
+
+    console.log('User logged in:', userPayload);
+    res.status(200).json({
+      user: userPayload,
+      accessToken,
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'خطایی در سرور رخ داد. لطفا دوباره تلاش کنید.' });
   }
-
-  if (user.password !== password) { // In a real app, compare hashed passwords!
-    return res.status(401).json({ message: 'ایمیل یا رمز عبور نامعتبر است.' });
-  }
-
-  const userPayload = { id: user.id, name: user.name, email: user.email };
-  const accessToken = jwt.sign(userPayload, jwtSecret, { expiresIn: '1h' });
-
-  console.log('User logged in:', userPayload);
-
-  res.status(200).json({
-    user: userPayload,
-    accessToken,
-  });
 });
 
 app.listen(port, () => {

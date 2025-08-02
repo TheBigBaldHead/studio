@@ -75,7 +75,9 @@ export function Header() {
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(searchQuery) {
-      window.location.href = `/search?q=${searchQuery}`;
+      router.push(`/search?q=${searchQuery}`);
+      setIsSearchFocused(false);
+      setSearchQuery('');
     }
   }
 
