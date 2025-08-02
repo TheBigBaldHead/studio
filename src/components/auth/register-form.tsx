@@ -20,12 +20,16 @@ const registerSchema = Yup.object().shape({
   name: Yup.string().min(2, "نام باید حداقل ۲ کاراکتر باشد.").required("نام الزامی است."),
   email: Yup.string().email("لطفا یک ایمیل معتبر وارد کنید.").required("ایمیل الزامی است."),
   password: Yup.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد.").required("رمز عبور الزامی است."),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'رمزهای عبور باید مطابقت داشته باشند')
+    .required('تکرار رمز عبور الزامی است.'),
 });
 
 export function RegisterForm() {
   const router = useRouter();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const { mutate, isPending } = usePostData({
     onSuccess: (data) => {
@@ -43,10 +47,11 @@ export function RegisterForm() {
       </CardHeader>
       <CardContent>
         <Formik
-          initialValues={{ name: "", email: "", password: "" }}
+          initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
           validationSchema={registerSchema}
           onSubmit={(values) => {
-            mutate({ endPoint: "/register", data: values });
+            const { confirmPassword, ...submissionValues } = values;
+            mutate({ endPoint: "/register", data: submissionValues });
           }}
         >
           {({ errors, touched }) => (
@@ -98,6 +103,30 @@ export function RegisterForm() {
                     </Button>
                  </div>
                 <ErrorMessage name="password" component="div" className="text-sm font-medium text-destructive" />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">تکرار رمز عبور</Label>
+                 <div className="relative">
+                    <Field
+                        as={Input}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className={errors.confirmPassword && touched.confirmPassword ? "border-destructive" : ""}
+                    />
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute left-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      >
+                        {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                 </div>
+                <ErrorMessage name="confirmPassword" component="div" className="text-sm font-medium text-destructive" />
               </div>
 
               <Button type="submit" disabled={isPending} className="w-full">
