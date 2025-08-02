@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { usePostData } from "@/lib/apiClient";
 import { useAuth } from "@/hooks/use-auth";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email("لطفا یک ایمیل معتبر وارد کنید.").required("ایمیل الزامی است."),
@@ -70,7 +71,7 @@ export function LoginForm() {
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className={errors.password && touched.password ? "border-destructive" : ""}
+                        className={cn("pl-10", errors.password && touched.password ? "border-destructive" : "")}
                     />
                     <Button
                         type="button"

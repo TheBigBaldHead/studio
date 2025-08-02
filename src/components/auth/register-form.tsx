@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { usePostData } from "@/lib/apiClient";
 import { useAuth } from "@/hooks/use-auth";
 import { Label } from "../ui/label";
+import { cn } from "@/lib/utils";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().min(2, "نام باید حداقل ۲ کاراکتر باشد.").required("نام الزامی است."),
@@ -90,7 +91,7 @@ export function RegisterForm() {
                         name="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className={errors.password && touched.password ? "border-destructive" : ""}
+                        className={cn("pl-10", errors.password && touched.password ? "border-destructive" : "")}
                     />
                     <Button
                         type="button"
@@ -114,7 +115,7 @@ export function RegisterForm() {
                         name="confirmPassword"
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className={errors.confirmPassword && touched.confirmPassword ? "border-destructive" : ""}
+                        className={cn("pl-10", errors.confirmPassword && touched.confirmPassword ? "border-destructive" : "")}
                     />
                     <Button
                         type="button"
