@@ -5,15 +5,30 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, onChange, ...props }, ref) => {
+  ({ className, type, onChange, placeholder, ...props }, ref) => {
     const [direction, setDirection] = React.useState('rtl');
+    const persianRegex = /[\u0600-\u06FF]/;
+
+    React.useEffect(() => {
+        if (placeholder && persianRegex.test(placeholder)) {
+            setDirection('rtl');
+        } else if (placeholder) {
+            setDirection('ltr');
+        }
+    }, [placeholder]);
 
     const handleDirectionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const persianRegex = /[\u0600-\u06FF]/;
-      if (persianRegex.test(e.target.value)) {
+      if (e.target.value && persianRegex.test(e.target.value)) {
         setDirection('rtl');
-      } else {
+      } else if (e.target.value) {
         setDirection('ltr');
+      } else {
+        // Reset to placeholder's direction if input is cleared
+        if (placeholder && persianRegex.test(placeholder)) {
+            setDirection('rtl');
+        } else {
+            setDirection('ltr');
+        }
       }
       if (onChange) {
         onChange(e);
@@ -28,6 +43,7 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
           className
         )}
         ref={ref}
+        placeholder={placeholder}
         onChange={handleDirectionChange}
         style={{ direction }}
         {...props}
