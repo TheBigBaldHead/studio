@@ -11,6 +11,11 @@ const port = 8080;
 const jwtSecret = 'your-super-secret-key';
 const saltRounds = 10;
 
+if (!process.env.DATABASE_URL) {
+  console.error("FATAL ERROR: DATABASE_URL is not defined. Please set it in your .env file.");
+  process.exit(1);
+}
+
 // Database connection
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -27,9 +32,24 @@ const createTableQuery = `
   );
 `;
 
-pool.query(createTableQuery)
-  .then(() => console.log('Users table is ready'))
-  .catch((err) => console.error('Error creating users table', err));
+pool.connect()
+  .then(client => {
+    return client.query(createTableQuery)
+      .then(() => {
+        client.release();
+        console.log('Users table is ready');
+      })
+      .catch(err => {
+        client.release();
+        console.error('Error creating users table', err);
+        process.exit(1);
+      });
+  })
+  .catch(err => {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1);
+  });
+
 
 app.use(cors());
 app.use(bodyParser.json());
