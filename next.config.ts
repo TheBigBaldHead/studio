@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    allowedDevOrigins: [
+      'https://*.googleusercontent.com',
+      'https://*.cloudworkstations.dev',
+    ],
+  },
   transpilePackages: ['next-themes'],
 };
 
