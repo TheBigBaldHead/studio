@@ -8,8 +8,7 @@ import { generateErrorMessage } from "@/lib/handleAPIErrors";
 import { CustomToast } from "@/lib/customToast";
 import React from "react";
 
-export const baseURL = "http://46.249.99.69:8080";
-// export const baseURL = "https://a50e-212-64-199-253.ngrok-free.app";
+export const baseURL = "http://localhost:8080";
 
 const apiClient = axios.create({
 	baseURL: baseURL,
