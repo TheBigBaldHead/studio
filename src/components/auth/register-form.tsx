@@ -8,6 +8,7 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +23,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePostData } from "@/lib/apiClient";
 import { useAuth } from "@/hooks/use-auth";
-import { CustomToast } from "@/lib/customToast";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "نام باید حداقل ۲ کاراکتر باشد." }),
@@ -38,7 +38,7 @@ export function RegisterForm() {
   const { mutate, isPending } = usePostData({
     onSuccess: (data) => {
       login(data.user, data.accessToken);
-      CustomToast("ثبت‌نام با موفقیت انجام شد!");
+      toast.success("ثبت‌نام با موفقیت انجام شد!");
       router.push("/");
     },
   });

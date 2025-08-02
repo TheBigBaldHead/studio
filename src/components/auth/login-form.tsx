@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePostData } from "@/lib/apiClient";
 import { useAuth } from "@/hooks/use-auth";
-import { CustomToast } from "@/lib/customToast";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({ message: "لطفا یک ایمیل معتبر وارد کنید." }),
@@ -36,7 +36,7 @@ export function LoginForm() {
   const { mutate, isPending } = usePostData({
     onSuccess: (data) => {
       login(data.user, data.accessToken);
-      CustomToast("با موفقیت وارد شدید!");
+      toast.success("با موفقیت وارد شدید!");
       router.push("/");
     },
   });
