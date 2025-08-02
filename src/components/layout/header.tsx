@@ -36,6 +36,8 @@ const navLinks = [
   { href: "#featured", label: "ویژه" },
 ]
 
+const isPersian = (text: string) => /[\u0600-\u06FF]/.test(text);
+
 export function Header() {
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<Product[]>([])
@@ -75,7 +77,9 @@ export function Header() {
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(searchQuery) {
-      window.location.href = `/search?q=${searchQuery}`;
+      router.push(`/search?q=${searchQuery}`);
+      setIsSearchFocused(false);
+      setSearchQuery('');
     }
   }
 
@@ -209,7 +213,15 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                <DropdownMenuLabel className={cn(
+                  "font-normal",
+                  isPersian(user.name) ? 'text-right' : 'text-left'
+                )}>
+                  <div className="text-sm font-medium leading-none">{user.name}</div>
+                  <div className="text-xs leading-none text-muted-foreground mt-1">
+                    {user.email}
+                  </div>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push('/profile')} className="cursor-pointer justify-end">
                   پروفایل
